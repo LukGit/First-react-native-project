@@ -1,5 +1,8 @@
 import React, { Component } from 'react';
 import { Button, StyleSheet, View, Text, ScrollView, Image } from 'react-native';
+import djiImg1 from './img/DJI_0084.jpeg'
+import liveLong from './sounds/challenge.mp3'
+import { Audio } from 'expo-av'
 
 const styles = StyleSheet.create({
   container: {
@@ -19,19 +22,27 @@ const styles = StyleSheet.create({
     fontFamily: "Helvetica-Bold",
     fontSize: 20,
     textAlign: "center"
+  },
+  image: {
+    resizeMode: "cover",
+    width: "100%",
+    height: "14%"
   }
 });
+
+const soundObject = new Audio.Sound()
 
 export default class ButtonBasics extends Component {
   state = {
     textDisp: "ok"
   }
-
+  
   componentDidMount(){
     this.setState({
       textDisp: "Button Pressed"
     })
     console.log(this.state.textDisp)
+    soundObject.loadAsync(require('./sounds/challenge.mp3'))
   } 
   _onPressButton() {
     // this.setState({
@@ -39,7 +50,24 @@ export default class ButtonBasics extends Component {
     // })
     alert('You tapped the button!')
   }
-  
+
+  playSound() {
+    
+      // An error occurred!
+      soundObject.playAsync()
+      console.log("played sound")
+    }
+    // try {
+    //   await soundObject.loadAsync(liveLong);
+    //   await soundObject.playAsync();
+    //   // Your sound is playing!
+
+    //   // Don't forget to unload the sound from memory
+    //   // when you are done using the Sound object
+    //   await soundObject.unloadAsync();
+    // } catch (error) {
+      
+
   render() {
     console.log(this.state.textDisp)
     return (
@@ -59,11 +87,15 @@ export default class ButtonBasics extends Component {
         </View> */}
         <View style={styles.alternativeLayoutButtonContainer}>
           <Button
-            onPress={() => {this.setState({textDisp: "Great!"})}}
-            title={this.state.textDisp}
+            onPress={() => {this.setState({textDisp: "This is Great!"})}}
+            title="Great!"
           />
           <Button
-            onPress={() => {this.setState({textDisp: "OK Pressed"})}}
+            onPress={() => {
+              this.playSound
+              this.setState({textDisp: "OK then!"})
+              }
+            }
             title="OK!"
             color="black" 
           />
@@ -75,7 +107,7 @@ export default class ButtonBasics extends Component {
         </View>
         <ScrollView>
           <Text style={styles.textStyle}>Scroll me plz</Text>
-          <Image source={{uri: "https://reactnative.dev/img/tiny_logo.png", width: 64, height: 64}} />
+          <Image source={djiImg1} style={styles.image} />
           <Image source={{uri: "https://reactnative.dev/img/tiny_logo.png", width: 64, height: 64}} />
           <Image source={{uri: "https://reactnative.dev/img/tiny_logo.png", width: 64, height: 64}} />
           <Image source={{uri: "https://reactnative.dev/img/tiny_logo.png", width: 64, height: 64}} />

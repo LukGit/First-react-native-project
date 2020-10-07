@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
-import { Button, StyleSheet, View, Text, ScrollView, Image } from 'react-native';
+import { StyleSheet, View, Text, ScrollView, Image } from 'react-native';
+import { Button, Input, Icon } from 'galio-framework'
 import djiImg1 from './img/DJI_0084.jpeg'
 import liveLong from './sounds/challenge.mp3'
 import { Audio } from 'expo-av'
@@ -43,6 +44,19 @@ export default class ButtonBasics extends Component {
     })
     console.log(this.state.textDisp)
     soundObject.loadAsync(require('./sounds/challenge.mp3'))
+    const USER_URL = 'http://10.0.1.11:3000/users'
+    const reqObj = {
+      method: 'POST',
+      headers: {
+        'content-type': 'application/json'
+      },
+      body: JSON.stringify({name: "Ivan"})
+    }
+    fetch(USER_URL, reqObj)
+    .then(resp => resp.json())
+    .then(userData => {
+      console.log("fetched user", userData)
+    })
   } 
   _onPressButton() {
     // this.setState({
@@ -86,26 +100,39 @@ export default class ButtonBasics extends Component {
           />
         </View> */}
         <View style={styles.alternativeLayoutButtonContainer}>
+          
           <Button
-            onPress={() => {this.setState({textDisp: "This is Great!"})}}
-            title="Great!"
-          />
+            onPress={() => {this.setState({textDisp: "This is Great!"})}}>
+            Great!
+          </Button>
+          
           <Button
             onPress={() => {
               this.playSound
               this.setState({textDisp: "OK then!"})
               }
             }
-            title="OK!"
-            color="black" 
-          />
+            color="black" >
+            OK!
+            </Button> 
         </View>
         <View style={styles.buttonContainer}>
           <Text
           style={styles.textStyle}
           >{this.state.textDisp}</Text>
+          <Input
+            right
+            placeholder="Icon Right"
+            iconContent={
+            <Icon
+              size={11}
+              name="search-zoom-in"
+              family="ArgonExtra"
+          />
+      }
+    />
         </View>
-        <ScrollView>
+          <ScrollView>
           <Text style={styles.textStyle}>Scroll me plz</Text>
           <Image source={djiImg1} style={styles.image} />
           <Image source={{uri: "https://reactnative.dev/img/tiny_logo.png", width: 64, height: 64}} />

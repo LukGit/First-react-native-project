@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { StyleSheet, View, Text, ScrollView, Image } from 'react-native';
-import { Button, Input, Icon } from 'galio-framework'
+import { Button, Input, Icon, Card } from 'galio-framework'
+import { theme, withGalio, GalioProvider } from 'galio-framework'
 import djiImg1 from './img/DJI_0084.jpeg'
 import liveLong from './sounds/challenge.mp3'
 import { Audio } from 'expo-av'
@@ -27,7 +28,7 @@ const styles = StyleSheet.create({
   image: {
     resizeMode: "cover",
     width: "100%",
-    height: "14%"
+    height: "150%"
   }
 });
 
@@ -35,15 +36,12 @@ const soundObject = new Audio.Sound()
 
 export default class ButtonBasics extends Component {
   state = {
-    textDisp: "ok"
+    textDisp: "ok",
+    notes: []
   }
   
   componentDidMount(){
-    this.setState({
-      textDisp: "Button Pressed"
-    })
-    console.log(this.state.textDisp)
-    soundObject.loadAsync(require('./sounds/challenge.mp3'))
+    // soundObject.loadAsync(require('./sounds/challenge.mp3'))
     const USER_URL = 'http://10.0.1.11:3000/users'
     const reqObj = {
       method: 'POST',
@@ -55,8 +53,12 @@ export default class ButtonBasics extends Component {
     fetch(USER_URL, reqObj)
     .then(resp => resp.json())
     .then(userData => {
-      console.log("fetched user", userData)
+      this.setState({
+        textDisp: "Button Pressed",
+        notes: userData.notes
+      })
     })
+
   } 
   _onPressButton() {
     // this.setState({
@@ -84,6 +86,7 @@ export default class ButtonBasics extends Component {
 
   render() {
     console.log(this.state.textDisp)
+    const cardObj = {title: "this is a title", img: 'djiImg1'}
     return (
       <View style={styles.container}>
         {/* <View style={styles.buttonContainer}>
@@ -133,8 +136,28 @@ export default class ButtonBasics extends Component {
     />
         </View>
           <ScrollView>
-          <Text style={styles.textStyle}>Scroll me plz</Text>
-          <Image source={djiImg1} style={styles.image} />
+          {/* <Image source={djiImg1} style={styles.image} /> */}
+          {this.state.notes.map(note => {
+            // return <Text style={styles.textStyle} key={note.id}>{note.title}</Text>
+            return <Card
+                    flex
+                    borderless
+                    style={styles.card}
+                    title={note.title}
+                    caption={note.content}
+                    location="Los Angeles, CA"
+                    avatar="http://i.pravatar.cc/100?id=skater"
+                    imageStyle={styles.cardImageRadius}
+                    imageBlockStyle={{ padding: theme.SIZES.BASE / 2 }}
+                    image="https://images.unsplash.com/photo-1497802176320-541c8e8de98d?&w=1600&h=900&fit=crop&crop=entropy&q=300"
+                    key={note.id}
+                    titleColor='blue'
+                    captionColor='black'
+                    />
+          })}
+          
+          {/* <Text style={styles.textStyle}>Scroll me plz</Text>
+          
           <Image source={{uri: "https://reactnative.dev/img/tiny_logo.png", width: 64, height: 64}} />
           <Image source={{uri: "https://reactnative.dev/img/tiny_logo.png", width: 64, height: 64}} />
           <Image source={{uri: "https://reactnative.dev/img/tiny_logo.png", width: 64, height: 64}} />
@@ -163,7 +186,7 @@ export default class ButtonBasics extends Component {
           <Image source={{uri: "https://reactnative.dev/img/tiny_logo.png", width: 64, height: 64}} />
           <Image source={{uri: "https://reactnative.dev/img/tiny_logo.png", width: 64, height: 64}} />
           <Image source={{uri: "https://reactnative.dev/img/tiny_logo.png", width: 64, height: 64}} />
-          <Text style={styles.textStyle}>React Native</Text>
+          <Text style={styles.textStyle}>React Native</Text> */}
         </ScrollView>
       </View>
     );

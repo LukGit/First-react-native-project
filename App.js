@@ -34,7 +34,7 @@ const styles = StyleSheet.create({
 
 const soundObject = new Audio.Sound()
 
-export default class ButtonBasics extends Component {
+export default class myApp extends Component {
   state = {
     textDisp: "ok",
     notes: []
@@ -73,35 +73,17 @@ export default class ButtonBasics extends Component {
       soundObject.playAsync()
       console.log("played sound")
     }
-    // try {
-    //   await soundObject.loadAsync(liveLong);
-    //   await soundObject.playAsync();
-    //   // Your sound is playing!
-
-    //   // Don't forget to unload the sound from memory
-    //   // when you are done using the Sound object
-    //   await soundObject.unloadAsync();
-    // } catch (error) {
       
 
   render() {
     console.log(this.state.textDisp)
     const cardObj = {title: "this is a title", img: 'djiImg1'}
+    const routes = [
+      {title: 'First Scene', index: 0},
+      {title: 'Second Scene', index: 1},
+    ];
     return (
       <View style={styles.container}>
-        {/* <View style={styles.buttonContainer}>
-          <Button
-            onPress={this._onPressButton}
-            title="Press Me"
-          />
-        </View>
-        <View style={styles.buttonContainer}>
-          <Button
-            onPress={this._onPressButton}
-            title="Press Me"
-            color="#841584"
-          />
-        </View> */}
         <View style={styles.alternativeLayoutButtonContainer}>
           
           <Button
@@ -138,7 +120,6 @@ export default class ButtonBasics extends Component {
           <ScrollView>
           {/* <Image source={djiImg1} style={styles.image} /> */}
           {this.state.notes.map(note => {
-            // return <Text style={styles.textStyle} key={note.id}>{note.title}</Text>
             return <Card
                     flex
                     borderless
@@ -155,38 +136,6 @@ export default class ButtonBasics extends Component {
                     captionColor='black'
                     />
           })}
-          
-          {/* <Text style={styles.textStyle}>Scroll me plz</Text>
-          
-          <Image source={{uri: "https://reactnative.dev/img/tiny_logo.png", width: 64, height: 64}} />
-          <Image source={{uri: "https://reactnative.dev/img/tiny_logo.png", width: 64, height: 64}} />
-          <Image source={{uri: "https://reactnative.dev/img/tiny_logo.png", width: 64, height: 64}} />
-          <Image source={{uri: "https://reactnative.dev/img/tiny_logo.png", width: 64, height: 64}} />
-          <Text style={styles.textStyle}>If you like</Text>
-          <Image source={{uri: "https://reactnative.dev/img/tiny_logo.png", width: 64, height: 64}} />
-          <Image source={{uri: "https://reactnative.dev/img/tiny_logo.png", width: 64, height: 64}} />
-          <Image source={{uri: "https://reactnative.dev/img/tiny_logo.png", width: 64, height: 64}} />
-          <Image source={{uri: "https://reactnative.dev/img/tiny_logo.png", width: 64, height: 64}} />
-          <Image source={{uri: "https://reactnative.dev/img/tiny_logo.png", width: 64, height: 64}} />
-          <Text style={styles.textStyle}>Scrolling down</Text>
-          <Image source={{uri: "https://reactnative.dev/img/tiny_logo.png", width: 64, height: 64}} />
-          <Image source={{uri: "https://reactnative.dev/img/tiny_logo.png", width: 64, height: 64}} />
-          <Image source={{uri: "https://reactnative.dev/img/tiny_logo.png", width: 64, height: 64}} />
-          <Image source={{uri: "https://reactnative.dev/img/tiny_logo.png", width: 64, height: 64}} />
-          <Image source={{uri: "https://reactnative.dev/img/tiny_logo.png", width: 64, height: 64}} />
-          <Text style={styles.textStyle}>What's the best</Text>
-          <Image source={{uri: "https://reactnative.dev/img/tiny_logo.png", width: 64, height: 64}} />
-          <Image source={{uri: "https://reactnative.dev/img/tiny_logo.png", width: 64, height: 64}} />
-          <Image source={{uri: "https://reactnative.dev/img/tiny_logo.png", width: 64, height: 64}} />
-          <Image source={{uri: "https://reactnative.dev/img/tiny_logo.png", width: 64, height: 64}} />
-          <Image source={{uri: "https://reactnative.dev/img/tiny_logo.png", width: 64, height: 64}} />
-          <Text style={styles.textStyle}>Framework around?</Text>
-          <Image source={{uri: "https://reactnative.dev/img/tiny_logo.png", width: 64, height: 64}} />
-          <Image source={{uri: "https://reactnative.dev/img/tiny_logo.png", width: 64, height: 64}} />
-          <Image source={{uri: "https://reactnative.dev/img/tiny_logo.png", width: 64, height: 64}} />
-          <Image source={{uri: "https://reactnative.dev/img/tiny_logo.png", width: 64, height: 64}} />
-          <Image source={{uri: "https://reactnative.dev/img/tiny_logo.png", width: 64, height: 64}} />
-          <Text style={styles.textStyle}>React Native</Text> */}
         </ScrollView>
       </View>
     );
